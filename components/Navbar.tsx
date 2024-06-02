@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { Navbar } from "flowbite-react"
 import Image from "next/image"
 import { ModeToggle } from "./ModeToogle"
 import { useClerk, useUser } from "@clerk/nextjs"
