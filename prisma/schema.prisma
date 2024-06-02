@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum PropertyCategory {
+  HOTEL
+  HOUSE
+  APARTMENT
+  BED_AND_BREAKFAST
+  HOSTEL
+  RESORT
+  VILLA
+  CABIN
+  COTTAGE
+  GUESTHOUSE
+}
+
+model Property {
+  id                  String    @id @default(uuid())
+  userid              String
+  title               String    @db.Text
+  description         String    @db.LongText
+  category            String
+  images              String    @db.LongText
+  country             String
+  state               String
+  city                String
+  locationDescription String    @db.LongText
+  guests              Int
+  Bedrooms            Int
+  Beds                Int
+  gym                 Boolean   @default(false)
+  publicPool          Boolean   @default(false)
+  freeWifi            Boolean   @default(false)
+  restaurant          Boolean   @default(false)
+  parking             Boolean   @default(false)
+  noSmoking           Boolean   @default(false)
+  bathtub             Boolean   @default(false)
+  roomServices        Boolean   @default(false)
+  price               Int
+  addedAt             DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  bookings            Booking[]
+
+  @@fulltext([title])
+}
+
+model Booking {
+  id              String   @id @default(uuid())
+  userName        String
+  userEmail       String
+  userId          String
+  propertyId      String
+  hotelOwnerId    String
+  checkInDate     DateTime
+  checkOutDate    DateTime
+  totalPrice      Int
+  paymentStatus   Boolean  @default(false)
+  paymentIntentId String   @unique
+  bookedAt        DateTime @default(now())
+
+  Property Property @relation(fields: [propertyId], references: [id])
+
+  @@index([propertyId])
+}
