@@ -1,7 +1,7 @@
 # StayEase
 
 <h1 align="center">StayEase</h1>
-<h4 align="center">Full-stack Booking Website</h4>
+<h4 align="center">Full-stack Hotel Booking Website whith Next.js Tailwindcss Prisma</h4>
 <p align="center">
     <a href="https://nextjs.org/">
         <img src="https://img.shields.io/badge/Next.js-Built-black?logo=next.js&logoColor=white&labelColor=black" />
